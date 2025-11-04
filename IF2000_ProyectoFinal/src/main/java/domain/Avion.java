@@ -8,6 +8,6 @@ package domain;
  *
  * @author mauri
  */
-public class Hola {
+public class Avion {
     
 }
