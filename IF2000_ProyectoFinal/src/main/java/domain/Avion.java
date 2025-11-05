@@ -9,6 +9,6 @@ package main.java.domain;
  * @author mauri
  */
 public class Avion {
-    public void avion(){
+    public void avion(){//prueba
     }
 }
