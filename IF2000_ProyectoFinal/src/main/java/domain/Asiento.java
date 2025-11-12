@@ -6,7 +6,7 @@ package main.java.domain;
 
 /**
  *
- * @author alvin
+ * @author alvin, mau, ariana, wendoly
  */
 public class Asiento {
     

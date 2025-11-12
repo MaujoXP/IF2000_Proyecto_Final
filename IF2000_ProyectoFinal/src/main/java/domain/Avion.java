@@ -31,7 +31,7 @@ public class Avion {
     }
     
     // corregir estructura
-    private Asiento buscarAsientos(String idAsiento){
+    public Asiento buscarAsientos(String idAsiento){
         if(idAsiento == null){
             return null; //no hay id valido para el asiento
         }
