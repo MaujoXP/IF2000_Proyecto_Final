@@ -32,11 +32,31 @@ public class Avion {
     
     // corregir estructura
     private Asiento buscarAsientos(String idAsiento){
-        if(idAsiento == null || idAsiento.trim().isEmpty()) return null;
+        if(idAsiento == null){
+            return null; //no hay id valido para el asiento
+        }
+        // clave se encarga de verificar la validez del id si se encuentra vacio
         String claveAsiento = idAsiento.trim().toUpperCase();
-        for(Asiento a : asientos){
-            if(a != null && a.getIdAsiento().toUpperCase().equals(claveAsiento))
-                return a;
+        if(claveAsiento.isEmpty()){
+            return null; // id vacio
+        }
+        
+        //busqueda del asiento por su indice o id
+        for(int i = 0; i < asientos.length; i++){
+            Asiento actual = asientos[i];
+            //comprobacion de nulidad
+            if(actual == null){
+                continue; //continua la busqueda
+            }
+            
+            //normalizacion y obtencion del asiento actual
+            String asientoActual = (actual.getIdAsiento() == null) ? "" : 
+                    actual.getIdAsiento().trim().toUpperCase();
+            
+            // comparativa entre clvae y id del asiento
+            if(asientoActual.equals(claveAsiento)){
+                return actual;
+            }
         }
         return null;
     }
@@ -84,6 +104,7 @@ public class Avion {
         return contadorAsientos;
     }
     
+    @Override
     public String toString(){
         return " Avion con matricula: |" + matriculaAvion + "|";
     }

@@ -40,9 +40,12 @@ public class Asiento {
         this.reservado = false;
     }
     
+    @Override
     public String toString(){
-        return "----Datos del asiento----" + "\n" +
-                idAsiento + "[" + tipoClase + "] " +
-                (reservado ? "(Ocupado)" : "(Libre)");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Asiento: ").append(idAsiento).append("\n");
+        sb.append("Clase asignada: ").append(tipoClase).append("\n");
+        sb.append("Estado del asiento: ").append(reservado ? "Ocupado" : "Libre").append("\n");
+        return sb.toString();
     }
 }
