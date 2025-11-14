@@ -1,0 +1,13 @@
+# Ignorar cosas privadas de NetBeans
+IF2000_ProyectoFinal/nbproject/private/
+
+# carpetas generadas
+IF2000_ProyectoFinal/build/
+IF2000_ProyectoFinal/dist/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# NetBeans extras
+**/nbproject/private/
