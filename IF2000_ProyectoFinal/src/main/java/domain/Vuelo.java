@@ -53,6 +53,20 @@ public class Vuelo {
         return avion;
     }
     
+    public void reservarAsientos(String idAsiento) throws Exception{
+        if(avion == null){
+            throw new Exception("El vuelo " + codigoVuelo + " no posee un avion asignado");
+        }
+        avion.reservarAsientos(idAsiento);
+    }
+    
+     public void liberarAsentos(String idAsiento) throws Exception{
+        if(avion == null){
+            throw new Exception("El vuelo " + codigoVuelo + " no posee un avion asignado");
+        }
+        avion.liberarAsientos(idAsiento);
+    }
+    
     public String obtenerInfoAsiento(String idAsiento){
         // validacion basica de entrada
         if(idAsiento == null){
