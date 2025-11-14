@@ -70,8 +70,8 @@ public class Factura {
     @Override
     public String toString() {
         return "Factura\nFactura N°: " + numeroFactura +
-               "\nPasajero: " + tiquete.getPasajero().getNombre();
-               "\nVuelo: " + tiquete.getVuelo().getOrigen() + " → " + tiquete.getVuelo().getDestino() +
+               "\nPasajero: " + tiquete.getPasajero().getNombre() +
+               "\nVuelo: " + tiquete.getVuelo().getOrigenVuelo() + " → " + tiquete.getVuelo().getDestinoVuelo() +
                "\nClase: " + tiquete.getClase() +
                "\nSubtotal: ₡" + subtotal +
                "\nIVA (13%): ₡" + (subtotal * impuesto) +
