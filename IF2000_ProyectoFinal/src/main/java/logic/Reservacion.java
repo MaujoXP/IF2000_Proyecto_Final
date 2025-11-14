@@ -5,6 +5,7 @@
 package main.java.logic;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import main.java.domain.Pasajero;
 import main.java.domain.Vuelo;
 
 /**
