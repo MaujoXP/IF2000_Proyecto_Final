@@ -6,7 +6,7 @@ package main.java.domain;
 
 /**
  *
- * @author mauri
+ * @author mauri, alvin
  */
 public class Tiquete {
     private static int contadorTiquetes = 1000;
