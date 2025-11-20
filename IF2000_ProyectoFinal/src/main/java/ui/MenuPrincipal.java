@@ -52,11 +52,13 @@ public class MenuPrincipal extends JFrame {
 
 
         btnCancelar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Abrir ventana para cancelar reserva...");
+            VentanaCancelacion vc = new VentanaCancelacion(controlador);
+            vc.setVisible(true);
         });
 
         btnVerFacturas.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Abrir ventana de facturas...");
+            VentanaFactura ventana = new VentanaFactura(controlador);
+            ventana.setVisible(true);
         });
     }
 }

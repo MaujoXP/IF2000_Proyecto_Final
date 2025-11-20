@@ -123,5 +123,9 @@ public class Reservacion {
     return sb.toString();
     
     }
+
+    public Object getVuelo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
     
