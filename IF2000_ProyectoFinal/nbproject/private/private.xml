@@ -11,7 +11,11 @@
             <file>file:/C:/IF2000/Proyecto_Final/IF2000_Proyecto_Final/IF2000_ProyectoFinal/src/main/java/domain/Vuelo.java</file>
             <file>file:/C:/IF2000/Proyecto_Final/IF2000_Proyecto_Final/IF2000_ProyectoFinal/src/main/java/logic/ControladorReservas.java</file>
             <file>file:/C:/IF2000/Proyecto_Final/IF2000_Proyecto_Final/IF2000_ProyectoFinal/src/main/java/logic/Reservacion.java</file>
-            <file>file:/C:/IF2000/Proyecto_Final/IF2000_Proyecto_Final/IF2000_ProyectoFinal/src/main/java/ui/Hola3.java</file>
+            <file>file:/C:/IF2000/Proyecto_Final/IF2000_Proyecto_Final/IF2000_ProyectoFinal/src/App/java/App.java</file>
+            <file>file:/C:/IF2000/Proyecto_Final/IF2000_Proyecto_Final/IF2000_ProyectoFinal/src/main/java/ui/MenuPrincipal.java</file>
+            <file>file:/C:/IF2000/Proyecto_Final/IF2000_Proyecto_Final/IF2000_ProyectoFinal/src/main/java/ui/VentanaReservacion.java</file>
+            <file>file:/C:/IF2000/Proyecto_Final/IF2000_Proyecto_Final/IF2000_ProyectoFinal/src/main/java/ui/VentanaCancelacion.java</file>
+            <file>file:/C:/IF2000/Proyecto_Final/IF2000_Proyecto_Final/IF2000_ProyectoFinal/src/main/java/ui/VentanaFactura.java</file>
         </group>
     </open-files>
 </project-private>
