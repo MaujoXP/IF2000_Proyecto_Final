@@ -30,6 +30,7 @@ import main.java.logic.Reservacion;
     private JButton btnCancelar;
     private JTextField txtIdReserva;
     private JTextArea txtResultado;
+    private Reservacion selectedReservacion;
     /**
      * Creates new form VentanaCancelacion
      */
@@ -61,11 +62,11 @@ import main.java.logic.Reservacion;
       add(lblId);
        
       txtIdReserva = new JTextField();
-      txtIdReserva.setBounds(240, 85, 150, 25);
+      txtIdReserva.setBounds(150, 60, 150, 25);
       add(txtIdReserva);
       
       btnBuscar = new JButton("Buscar");
-      btnBuscar.setBounds(240, 85, 150, 25);
+      btnBuscar.setBounds(310, 60, 100, 25);
       add(btnBuscar);
      
       txtResultado = new JTextArea();
@@ -76,6 +77,7 @@ import main.java.logic.Reservacion;
       
       btnCancelar = new JButton("Cancelar Reserva");
       btnCancelar.setBounds(120, 260, 200, 35);
+      btnCancelar.setEnabled(false);
       add(btnCancelar);
     }
     
@@ -92,16 +94,20 @@ import main.java.logic.Reservacion;
                 return;
             }
             
+            selectedReservacion = controlador.buscarReservacion(id);
+            
             Reservacion r = controlador.buscarReservacion(id);
-            if(r == null){
+            if(selectedReservacion == null){
                 txtResultado.setText("No se encontro la reservacion");
+                btnCancelar.setEnabled(false);
             }else{
                 txtResultado.setText(
-                   "ID: " + r.getIdReservacion() + "\n" +
-                   "Vuelo: " + r.getCodigoVuelo() + "\n" +
-                   "Pasajero: " + r.getPasajero().getNombre() + "\n" +
-                   "Asiento: " + String.join(", ", r.getIdAsiento()) + "\n"
+                   "ID: " + selectedReservacion.getIdReservacion() + "\n" +
+                   "Vuelo: " + selectedReservacion.getCodigoVuelo() + "\n" +
+                   "Pasajero: " + selectedReservacion.getPasajero().getNombre() + "\n" +
+                   "Asiento: " + String.join(", ", selectedReservacion.getIdAsiento()) + "\n"
                 );
+                btnCancelar.setEnabled(true);
             }
          }
      });   
@@ -113,21 +119,31 @@ import main.java.logic.Reservacion;
         
         @Override
         public void actionPerformed(ActionEvent e){
+            
+            if(selectedReservacion == null){
+                JOptionPane.showMessageDialog(null, "Debe de buscar la reserva a cancelar");
+                return;
+            }
 
-         String id = txtIdReserva.getText().trim();
+         String id = selectedReservacion.getIdReservacion();
+         
+         int confirmar = JOptionPane.showConfirmDialog(null, "Quieres cancelar la reservacion" + id + "?",
+                 "Confirmar", JOptionPane.YES_NO_OPTION
+                 
+                 );
 
-       if(id.isBlank()){
-
-        JOptionPane.showMessageDialog(null, "Debe Ingresar un ID");
+       if(confirmar != JOptionPane.YES_NO_OPTION ){
         return;
        }
       
        try{
+           
        controlador.cancelarReservacion(id);
-         JOptionPane.showMessageDialog(null, "La reservacion fue cancelada");
-         txtResultado.setText("");
+       
+           JOptionPane.showMessageDialog(null, "Reservacion cancelada de manera exitosa");
+           
        }catch(Exception ex){
-           JOptionPane.showMessageDialog(null, ex.getMessage());
+           JOptionPane.showMessageDialog(null,"Error al cancelar" + ex.getMessage());
        }
       }
     });
