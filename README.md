@@ -50,8 +50,7 @@ Git (opcional, para clonar el repositorio)
 
 Clonar usando Git:
 
-git clone https://github.com/tu_usuario/tu_repositorio.git
-
+git clone https://github.com/MaujoXP/IF2000_Proyecto_Final.git
 
 O descargarlo como archivo ZIP desde GitHub.
 
@@ -63,7 +62,7 @@ En IntelliJ/Eclipse: Open Folder y seleccionar la carpeta del proyecto
 
 4. Ejecutar el programa
 
-Ubica la clase que contiene el método main (normalmente dentro del paquete main.java o main.java.ui) y ejecútala.
+Ubica la clase que contiene el método main en MenuPrincipal y ejecútala.
 
 Esto abrirá la ventana principal del sistema, desde donde podrás:
 
