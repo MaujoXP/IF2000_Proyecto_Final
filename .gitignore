@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+/IF2000_ProyectoFinal/build/
+=======
 # Ignorar cosas privadas de NetBeans
 IF2000_ProyectoFinal/nbproject/private/
 
@@ -11,3 +14,4 @@ Desktop.ini
 
 # NetBeans extras
 **/nbproject/private/
+>>>>>>> origin/main

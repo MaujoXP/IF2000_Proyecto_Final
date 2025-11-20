@@ -7,6 +7,7 @@ package main.java.ui;
 import javax.swing.*;
 import java.awt.*;
 import main.java.logic.ControladorReservas;
+import main.java.ui.VentanaFactura;
 
 public class MenuPrincipal extends JFrame {
 
@@ -52,12 +53,19 @@ public class MenuPrincipal extends JFrame {
 
 
         btnCancelar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Abrir ventana para cancelar reserva...");
+            VentanaCancelacion vc = new VentanaCancelacion(controlador);
+            vc.setVisible(true);
         });
 
-        btnVerFacturas.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Abrir ventana de facturas...");
-        });
+       
+
+
+btnVerFacturas.addActionListener(e -> {
+    new VentanaFactura(controlador).setVisible(true);
+});
+
+
+        
     }
 }
 

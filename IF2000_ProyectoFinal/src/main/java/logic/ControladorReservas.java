@@ -69,7 +69,7 @@ public class ControladorReservas {
         return reservacion;
     }
 
-    private Reservacion buscarReservacion(String idReservacion) {
+    public Reservacion buscarReservacion(String idReservacion) {
         for (Reservacion r : reservaciones) {
             if (r.getIdReservacion().equals(idReservacion)) {
                 return r;
