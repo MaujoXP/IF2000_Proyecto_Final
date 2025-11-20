@@ -7,6 +7,7 @@ package main.java.ui;
 import javax.swing.*;
 import java.awt.*;
 import main.java.logic.ControladorReservas;
+import main.java.ui.VentanaFactura;
 
 public class MenuPrincipal extends JFrame {
 
@@ -56,10 +57,15 @@ public class MenuPrincipal extends JFrame {
             vc.setVisible(true);
         });
 
-        btnVerFacturas.addActionListener(e -> {
-            VentanaFactura ventana = new VentanaFactura(controlador);
-            ventana.setVisible(true);
-        });
+       
+
+
+btnVerFacturas.addActionListener(e -> {
+    new VentanaFactura(controlador).setVisible(true);
+});
+
+
+        
     }
 }
 

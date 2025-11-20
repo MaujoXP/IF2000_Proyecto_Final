@@ -30,6 +30,8 @@ import main.java.logic.Reservacion;
     private JButton btnCancelar;
     private JTextField txtIdReserva;
     private JTextArea txtResultado;
+    private JButton btnAtras;
+
     /**
      * Creates new form VentanaCancelacion
      */
@@ -47,37 +49,53 @@ import main.java.logic.Reservacion;
         eventos();
     }
     
-    private void inicializarComponentes(){
-        
-      setLayout(null);
-      
-      JLabel lblTitulo = new JLabel("Cancelar Reservacion");
-      lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-      lblTitulo.setBounds(110, 10, 300, 30);
-      add(lblTitulo);  
-        
-      JLabel lblId = new JLabel("ID de la reservacion");
-      lblId.setBounds(20, 60, 200, 25);
-      add(lblId);
-       
-      txtIdReserva = new JTextField();
-      txtIdReserva.setBounds(240, 85, 150, 25);
-      add(txtIdReserva);
-      
-      btnBuscar = new JButton("Buscar");
-      btnBuscar.setBounds(240, 85, 150, 25);
-      add(btnBuscar);
-     
-      txtResultado = new JTextArea();
-      txtResultado.setEditable(false);
-      JScrollPane scroll = new JScrollPane(txtResultado);
-      scroll.setBounds(20, 130, 370, 120);
-      add(scroll);
-      
-      btnCancelar = new JButton("Cancelar Reserva");
-      btnCancelar.setBounds(120, 260, 200, 35);
-      add(btnCancelar);
-    }
+   private void inicializarComponentes(){
+
+    setLayout(null);
+
+    JLabel lblTitulo = new JLabel("Cancelar Reservacion");
+    lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
+    lblTitulo.setBounds(110, 10, 300, 30);
+    add(lblTitulo);
+
+    JLabel lblId = new JLabel("ID de la reservacion:");
+    lblId.setBounds(20, 60, 200, 25);
+    add(lblId);
+
+    // ✔ Crear campo de texto
+    txtIdReserva = new JTextField();
+    txtIdReserva.setBounds(150, 60, 150, 25);
+    add(txtIdReserva);
+
+    // ✔ Crear botón Buscar (estaba perdido)
+    btnBuscar = new JButton("Buscar");
+    btnBuscar.setBounds(310, 60, 80, 25);
+    add(btnBuscar);
+
+    // Área de resultados
+    txtResultado = new JTextArea();
+    txtResultado.setEditable(false);
+    JScrollPane scroll = new JScrollPane(txtResultado);
+    scroll.setBounds(20, 130, 370, 120);
+    add(scroll);
+
+    // Botón Cancelar
+    btnCancelar = new JButton("Cancelar Reserva");
+    btnCancelar.setBounds(120, 260, 200, 35);
+    add(btnCancelar);
+    
+    btnAtras = new JButton("Atrás");
+btnAtras.setBounds(20, 260, 90, 35); 
+add(btnAtras);
+btnAtras.addActionListener(e -> {
+    new MenuPrincipal(controlador).setVisible(true);
+    dispose();
+});
+
+
+}
+;
+
     
     private void eventos(){
      
