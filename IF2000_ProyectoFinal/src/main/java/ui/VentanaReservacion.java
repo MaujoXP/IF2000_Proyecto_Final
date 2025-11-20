@@ -176,9 +176,23 @@ public class VentanaReservacion extends JFrame {
 
         if (vuelo == null) return;
 
+
+        String clase = (String) comboClase.getSelectedItem();
+
         for (var asiento : vuelo.getAvion().getAsiento()) {
-            if (!asiento.isReservado()) {
-                modeloAsientos.addElement(asiento.getIdAsiento());
+
+            if (asiento.isReservado()) continue;
+
+            String id = asiento.getIdAsiento();
+
+            if (clase.equals("Económica")) {
+                if (id.startsWith("1")) {
+                    modeloAsientos.addElement(id);
+                }
+            } else if (clase.equals("Ejecutiva")) {
+                if (id.startsWith("2")) {
+                    modeloAsientos.addElement(id);
+                }
             }
         }
     }
@@ -191,6 +205,13 @@ public class VentanaReservacion extends JFrame {
     private void eventos() {
 
         comboVuelos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarAsientos();
+            }
+        });
+
+        comboClase.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cargarAsientos();
