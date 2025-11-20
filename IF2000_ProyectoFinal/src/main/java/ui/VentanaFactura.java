@@ -1,140 +1,114 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package main.java.ui;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import main.java.logic.ControladorReservas;
 import main.java.logic.Reservacion;
 
-/**
- *
- * @author Hp
- */
-public class VentanaFactura extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaFactura.class.getName());
+public class VentanaFactura extends JFrame {
 
     private ControladorReservas controlador;
-    private JComboBox<String> comboReservas;
-    private JTextArea detalleFactura;
-    /**
-     * Creates new form VentanaFactura
-     */
+
+    private JTextField txtId;
+    private JTextArea txtFactura;
+    private JButton btnBuscar;
+    private JButton btnAtras;
+
     public VentanaFactura(ControladorReservas controlador) {
         this.controlador = controlador;
-        
-        setTitle("Facturas");
-        setSize(500, 400);
+
+        setTitle("Ver Factura");
+        setSize(450, 380);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                
-        initComponents();
-        
-        setLayout(null);
+
         inicializarComponentes();
-        cargaReservas();
         eventos();
     }
 
-    private void inicializarComponentes(){
-        
-       setLayout(null);
-       
-       JLabel lblTitulo = new JLabel("Facturas creadas");
-       lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-       lblTitulo.setBounds(150, 10, 300, 30);
-       add(lblTitulo);
-       
-       JLabel lblReserva = new JLabel("Seleccione la reservacion");
-       lblReserva.setBounds(20, 60, 200, 25);
-       add(lblReserva);
-       
-       comboReservas = new JComboBox<>();
-       comboReservas.setBounds(20, 85, 440, 25);
-       add(comboReservas); 
-       
-       detalleFactura = new JTextArea();
-       detalleFactura.setEditable(false);
-       JScrollPane scroll = new JScrollPane(detalleFactura);
-       scroll.setBounds(20, 130, 440, 200);
-       add(scroll);
-    }
-    
-    private void cargaReservas(){
-        
-      comboReservas.removeAllItems();
-      
-      List<Reservacion> reservas = controlador.listarReservaciones();
-     
-      for(Reservacion r : reservas){
-          comboReservas.addItem(r.getIdReservacion());
-      }        
-    }
-    
-  private void eventos(){
-   comboReservas.addActionListener(new ActionListener(){
-   
-           @Override
-           public void actionPerformed(ActionEvent e){
-
-            String id = (String) comboReservas.getSelectedItem();
-        
-           if(id == null)return;
-
-      Reservacion r = controlador.buscarReservacion(id);
-
-      detalleFactura.setText(
-                             "Factura de reservacion\n\n" +
-                             "ID Reserva: " + r.getIdReservacion() + "\n" +
-                             "Vuelo: " + r.getCodigoVuelo() + "\n" +
-                             "Pasajero: " + r.getPasajero().getNombre() + "\n" +
-                             "Cedula: " +r.getPasajero().getCedula() + "\n" +
-                             "Telefono: " + r.getPasajero().getTelefono() + "\n" +
-                             "Asiento: " + String.join(", ", r.getIdAsiento()) + "\n" +
-                             "Fecha: " + r.getFechaCreacion().toString() + "\n" +
-                             "\nTotal: " + calcularMonto(r)
-
-                );
-           }
+    private void inicializarComponentes() {
+        setLayout(null);
+        btnAtras = new JButton("Atrás");
+btnAtras.setBounds(40, 95, 100, 30); 
+add(btnAtras);
+btnAtras.addActionListener(e -> {
+    new MenuPrincipal(controlador).setVisible(true);
+    dispose();
 });
-   
-}   
-    private int calcularMonto(Reservacion r){
-        return r.getIdAsiento().length * 45000;
+
+        JLabel lblTitulo = new JLabel("Consulta de Factura");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
+        lblTitulo.setBounds(120, 10, 300, 30);
+        add(lblTitulo);
+
+        JLabel lblId = new JLabel("ID de reservación:");
+        lblId.setBounds(20, 60, 200, 25);
+        add(lblId);
+
+        txtId = new JTextField();
+        txtId.setBounds(150, 60, 200, 25);
+        add(txtId);
+
+        btnBuscar = new JButton("Buscar");
+        btnBuscar.setBounds(150, 95, 200, 30);
+        add(btnBuscar);
+
+        txtFactura = new JTextArea();
+        txtFactura.setEditable(false);
+        JScrollPane scroll = new JScrollPane(txtFactura);
+        scroll.setBounds(20, 140, 390, 180);
+        add(scroll);
+        
+        btnAtras = new JButton("Atrás");
+
+
     }
-    
-    
-    
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+    private void eventos() {
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-    /**
-     * @param args the command line arguments
-     */
+                String id = txtId.getText().trim();
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+                if (id.isBlank()) {
+                    JOptionPane.showMessageDialog(null,
+                            "Debe ingresar un ID válido.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                Reservacion r = controlador.buscarReservacion(id);
+
+                if (r == null) {
+                    txtFactura.setText("No existe una reservación con ese ID.");
+                    return;
+                }
+
+                // Construir factura
+                StringBuilder sb = new StringBuilder();
+                sb.append("----- FACTURA -----\n\n");
+                sb.append("ID Reservación: ").append(r.getIdReservacion()).append("\n");
+                sb.append("Vuelo: ").append(r.getCodigoVuelo()).append("\n");
+                sb.append("Pasajero: ").append(r.getPasajero().getNombre()).append("\n");
+                sb.append("Cédula: ").append(r.getPasajero().getCedula()).append("\n");
+                sb.append("Asientos: ").append(String.join(", ", r.getIdAsiento())).append("\n");
+                sb.append("\nFecha: ").append(r.getFechaCreacion()).append("\n");
+                sb.append("\nMonto Total: ₡").append(r.getIdAsiento().length * 25000); // si quieres tarifa
+
+                txtFactura.setText(sb.toString());
+            }
+        });
+    }
 }

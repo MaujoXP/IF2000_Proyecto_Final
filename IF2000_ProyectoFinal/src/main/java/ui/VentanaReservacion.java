@@ -35,6 +35,7 @@ public class VentanaReservacion extends JFrame {
     private DefaultListModel<String> modeloAsientos;
 
     private JButton btnReservar;
+    private JButton btnAtras;
 
     public VentanaReservacion(ControladorReservas controlador) {
         this.controlador = controlador;
@@ -53,6 +54,8 @@ public class VentanaReservacion extends JFrame {
     private void inicializarComponentes() {
 
         setLayout(null);
+        
+        
 
         JLabel lblTitulo = new JLabel("Reservación de Vuelos");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -118,6 +121,13 @@ public class VentanaReservacion extends JFrame {
         btnReservar = new JButton("Confirmar Reserva");
         btnReservar.setBounds(150, 450, 200, 40);
         add(btnReservar);
+         btnAtras = new JButton("Atrás");
+btnAtras.setBounds(150, 500, 200, 40); 
+add(btnAtras);
+btnAtras.addActionListener(e -> {
+    new MenuPrincipal(controlador).setVisible(true);
+    dispose();
+});
     }
 
     private void cargarVuelos() {

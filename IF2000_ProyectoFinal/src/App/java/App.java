@@ -40,7 +40,7 @@ public class App {
         controlador.agregarVuelo(vuelo1);
         controlador.agregarVuelo(vuelo2);
 
-        // Abrir interfaz gráfica (Swing)
+                                                                           // Abrir interfaz gráfica (Swing)
         new MenuPrincipal(controlador).setVisible(true);
     }
 }

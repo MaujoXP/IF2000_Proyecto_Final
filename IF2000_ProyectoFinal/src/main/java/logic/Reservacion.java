@@ -29,7 +29,9 @@ public class Reservacion {
         this.fechaCreacion = fechaCreacion;
         contador++;
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
-        this.idReservacion = "Reservacion- " + fechaCreacion.format(formato) + "- " + String.format("%03d", contador);
+       this.idReservacion = "R-" + String.format("%03d", contador);
+
+
     }
 
     public String getIdReservacion() {
