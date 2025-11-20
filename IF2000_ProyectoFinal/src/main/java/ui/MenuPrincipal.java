@@ -9,10 +9,36 @@ import java.awt.*;
 import main.java.logic.ControladorReservas;
 import main.java.ui.VentanaFactura;
 
+/**
+ * Ventana principal del sistema de reservación de vuelos.
+ * 
+ * Esta interfaz permite al usuario navegar por las distintas opciones del sistema:
+ * - Reservar un vuelo
+ * - Cancelar una reserva
+ * - Ver facturas generadas
+ * - Salir del sistema
+ *
+ * La interfaz utiliza Swing y se estructura con:
+ * - Un título superior
+ * - Un panel central con botones
+ *
+ * Cada botón abre una ventana distinta sin cerrar el menú principal.
+ *
+ * Dependencias:
+ * - ControladorReservas: maneja la lógica del sistema.
+ * - VentanaReservacion, VentanaCancelacion, VentanaFactura: ventanas secundarias.
+ * 
+ */
 public class MenuPrincipal extends JFrame {
 
     private ControladorReservas controlador;
 
+    /**
+     * Constructor que inicializa la ventana principal y configura
+     * todos los elementos gráficos del menú.
+     *
+     * @param controlador instancia del controlador que gestiona las operaciones del sistema
+     */
     public MenuPrincipal(ControladorReservas controlador) {
         this.controlador = controlador;
 
@@ -46,28 +72,19 @@ public class MenuPrincipal extends JFrame {
         // ACCIONES
         btnSalir.addActionListener(e -> System.exit(0));
 
-       btnReservar.addActionListener(e -> {
-    VentanaReservacion vr = new VentanaReservacion(controlador);
-    vr.setVisible(true);
-});
-
+        btnReservar.addActionListener(e -> {
+            VentanaReservacion vr = new VentanaReservacion(controlador);
+            vr.setVisible(true);
+        });
 
         btnCancelar.addActionListener(e -> {
             VentanaCancelacion vc = new VentanaCancelacion(controlador);
             vc.setVisible(true);
         });
 
-       
+        btnVerFacturas.addActionListener(e -> {
+            new VentanaFactura(controlador).setVisible(true);
+        });
 
-
-btnVerFacturas.addActionListener(e -> {
-    new VentanaFactura(controlador).setVisible(true);
-});
-
-
-        
     }
 }
-
-
-                                                                

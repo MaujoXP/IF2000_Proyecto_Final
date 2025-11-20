@@ -18,8 +18,24 @@ import main.java.logic.ControladorReservas;
 import main.java.logic.Reservacion;
 
 /**
+ * VentanaCancelacion
+ * ------------------
+ * Interfaz gráfica que permite al usuario:
+ *  - Buscar una reservación mediante su ID.
+ *  - Ver los datos de la reservación encontrada.
+ *  - Cancelar dicha reservación, si existe.
+ * 
+ * Esta ventana se comunica con el ControladorReservas para realizar las
+ * operaciones de búsqueda y cancelación.
+ * 
+ * Características:
+ *  - Usa Absolute Layout (coordenadas manuales).
+ *  - No modifica el menú principal, simplemente abre esta ventana.
+ *  - Incluye un botón "Atrás" para volver al menú.
  *
- * @author Hp
+ * Dependencias:
+ *  - ControladorReservas
+ *  - Reservacion
  */
     public class VentanaCancelacion extends javax.swing.JFrame {
     
@@ -33,7 +49,10 @@ import main.java.logic.Reservacion;
     private JButton btnAtras;
 
     /**
-     * Creates new form VentanaCancelacion
+     * Constructor de la ventana de cancelación.
+     *
+     * @param controlador controlador principal del sistema, necesario para
+     *                    realizar operaciones sobre las reservaciones.
      */
     public VentanaCancelacion(ControladorReservas controlador) {
         this.controlador = controlador;
@@ -49,54 +68,70 @@ import main.java.logic.Reservacion;
         eventos();
     }
     
-   private void inicializarComponentes(){
+    /**
+     * inicializarComponentes()
+     * ------------------------
+     * Método encargado de crear todos los elementos visuales (labels, botones,
+     * campo de texto, área de resultados).
+     *
+     * No realiza ninguna lógica, solo configuración visual.
+     */
+    private void inicializarComponentes(){
 
-    setLayout(null);
+        setLayout(null);
 
-    JLabel lblTitulo = new JLabel("Cancelar Reservacion");
-    lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-    lblTitulo.setBounds(110, 10, 300, 30);
-    add(lblTitulo);
+        JLabel lblTitulo = new JLabel("Cancelar Reservacion");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
+        lblTitulo.setBounds(110, 10, 300, 30);
+        add(lblTitulo);
 
-    JLabel lblId = new JLabel("ID de la reservacion:");
-    lblId.setBounds(20, 60, 200, 25);
-    add(lblId);
+        JLabel lblId = new JLabel("ID de la reservacion:");
+        lblId.setBounds(20, 60, 200, 25);
+        add(lblId);
 
-    // ✔ Crear campo de texto
-    txtIdReserva = new JTextField();
-    txtIdReserva.setBounds(150, 60, 150, 25);
-    add(txtIdReserva);
+        // ✔ Crear campo de texto
+        txtIdReserva = new JTextField();
+        txtIdReserva.setBounds(150, 60, 150, 25);
+        add(txtIdReserva);
 
-    // ✔ Crear botón Buscar (estaba perdido)
-    btnBuscar = new JButton("Buscar");
-    btnBuscar.setBounds(310, 60, 80, 25);
-    add(btnBuscar);
+        // ✔ Crear botón Buscar (estaba perdido)
+        btnBuscar = new JButton("Buscar");
+        btnBuscar.setBounds(310, 60, 80, 25);
+        add(btnBuscar);
 
-    // Área de resultados
-    txtResultado = new JTextArea();
-    txtResultado.setEditable(false);
-    JScrollPane scroll = new JScrollPane(txtResultado);
-    scroll.setBounds(20, 130, 370, 120);
-    add(scroll);
+        // Área de resultados
+        txtResultado = new JTextArea();
+        txtResultado.setEditable(false);
+        JScrollPane scroll = new JScrollPane(txtResultado);
+        scroll.setBounds(20, 130, 370, 120);
+        add(scroll);
 
-    // Botón Cancelar
-    btnCancelar = new JButton("Cancelar Reserva");
-    btnCancelar.setBounds(120, 260, 200, 35);
-    add(btnCancelar);
-    
-    btnAtras = new JButton("Atrás");
-btnAtras.setBounds(20, 260, 90, 35); 
-add(btnAtras);
-btnAtras.addActionListener(e -> {
-    new MenuPrincipal(controlador).setVisible(true);
-    dispose();
-});
+        // Botón Cancelar
+        btnCancelar = new JButton("Cancelar Reserva");
+        btnCancelar.setBounds(120, 260, 200, 35);
+        add(btnCancelar);
+
+        btnAtras = new JButton("Atrás");
+    btnAtras.setBounds(20, 260, 90, 35); 
+    add(btnAtras);
+    btnAtras.addActionListener(e -> {
+        new MenuPrincipal(controlador).setVisible(true);
+        dispose();
+    });
 
 
 }
 ;
 
-    
+    /**
+     * eventos()
+     * ---------
+     * Registra los ActionListeners de los botones:
+     *  - Buscar: busca la reservación en el sistema.
+     *  - Cancelar: intenta cancelar la reservación.
+     * 
+     * También valida el ID ingresado y muestra mensajes al usuario.
+     */
     private void eventos(){
      
      btnBuscar.addActionListener(new ActionListener(){

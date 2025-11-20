@@ -5,10 +5,13 @@
 package main.java.ui;
 
 /**
+ * VentanaReservacion permite al usuario seleccionar un vuelo, escoger
+ * asientos disponibles y registrar los datos del pasajero para crear 
+ * una reservación. Es una interfaz completa de ingreso y validación
+ * de información antes de confirmar la reserva.
  *
- * @author mauri
+ * @author mauri, alvin, ariana, wendoly
  */
-
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,21 +25,30 @@ import java.util.List;
 
 public class VentanaReservacion extends JFrame {
 
+    // Controlador central del sistema (maneja vuelos/reservas)
     private ControladorReservas controlador;
 
+    // Componentes gráficos de selección
     private JComboBox<String> comboVuelos;
     private JComboBox<String> comboClase;
     private JList<String> listaAsientos;
 
+    // Campos de texto para datos del pasajero
     private JTextField txtNombre;
     private JTextField txtCedula;
     private JTextField txtTelefono;
 
+    // Modelo para la lista de asientos
     private DefaultListModel<String> modeloAsientos;
 
+    // Botones principales
     private JButton btnReservar;
     private JButton btnAtras;
 
+    /**
+     * Constructor de la ventana. Configura tamaño, título y comportamientos iniciales.
+     * @param controlador gestor de operaciones del sistema
+     */
     public VentanaReservacion(ControladorReservas controlador) {
         this.controlador = controlador;
 
@@ -51,11 +63,13 @@ public class VentanaReservacion extends JFrame {
         eventos();
     }
 
+    /**
+     * Inicializa todos los componentes gráficos de la ventana,
+     * posicionándolos manualmente usando bounds.
+     */
     private void inicializarComponentes() {
 
         setLayout(null);
-        
-        
 
         JLabel lblTitulo = new JLabel("Reservación de Vuelos");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -121,15 +135,21 @@ public class VentanaReservacion extends JFrame {
         btnReservar = new JButton("Confirmar Reserva");
         btnReservar.setBounds(150, 450, 200, 40);
         add(btnReservar);
-         btnAtras = new JButton("Atrás");
-btnAtras.setBounds(150, 500, 200, 40); 
-add(btnAtras);
-btnAtras.addActionListener(e -> {
-    new MenuPrincipal(controlador).setVisible(true);
-    dispose();
-});
+
+        // Botón atrás
+        btnAtras = new JButton("Atrás");
+        btnAtras.setBounds(150, 500, 200, 40); 
+        add(btnAtras);
+        btnAtras.addActionListener(e -> {
+            new MenuPrincipal(controlador).setVisible(true);
+            dispose();
+        });
     }
 
+    /**
+     * Carga los vuelos disponibles en el comboBox. 
+     * También actualiza los asientos del primer vuelo.
+     */
     private void cargarVuelos() {
         List<Vuelo> vuelos = controlador.listarVuelos();
 
@@ -144,6 +164,10 @@ btnAtras.addActionListener(e -> {
         }
     }
 
+    /**
+     * Carga los asientos del vuelo seleccionado, mostrando únicamente
+     * los disponibles (no reservados) en la lista de selección.
+     */
     private void cargarAsientos() {
         modeloAsientos.clear();
 
@@ -152,12 +176,18 @@ btnAtras.addActionListener(e -> {
 
         if (vuelo == null) return;
 
-for (var asiento : vuelo.getAvion().getAsiento()) {
-    if (!asiento.isReservado()) {
-        modeloAsientos.addElement(asiento.getIdAsiento());
+        for (var asiento : vuelo.getAvion().getAsiento()) {
+            if (!asiento.isReservado()) {
+                modeloAsientos.addElement(asiento.getIdAsiento());
+            }
+        }
     }
-}
-    }
+
+    /**
+     * Método que asigna todos los listeners de botones y listas:
+     * - Cambiar vuelo actualiza los asientos.
+     * - Confirmar reserva ejecuta el proceso completo.
+     */
     private void eventos() {
 
         comboVuelos.addActionListener(new ActionListener() {
@@ -181,9 +211,19 @@ for (var asiento : vuelo.getAvion().getAsiento()) {
         });
     }
 
+    /**
+ * Método principal de lógica que:
+ *  - Valida campos
+ *  - Verifica asientos
+ *  - Crea objeto Pasajero
+ *  - Genera una Reservación en el sistema
+ *  - Actualiza la interfaz
+ *
+ * @throws Exception si falta algún dato o no se cumplen condiciones
+ */
     private void realizarReserva() throws Exception {
 
-        // Validaciones
+        // Validar vuelo
         String codigoVuelo = (String) comboVuelos.getSelectedItem();
         Vuelo vuelo = controlador.buscarVuelo(codigoVuelo);
 
@@ -191,26 +231,43 @@ for (var asiento : vuelo.getAvion().getAsiento()) {
             throw new Exception("Debe seleccionar un vuelo válido.");
         }
 
+        // Validar asientos
         List<String> seleccion = listaAsientos.getSelectedValuesList();
-
         if (seleccion.isEmpty()) {
             throw new Exception("Debe seleccionar al menos 1 asiento.");
         }
 
-        if (txtNombre.getText().isBlank() ||
-                txtCedula.getText().isBlank() ||
-                txtTelefono.getText().isBlank()) {
+        // Validar que no estén vacíos
+        String nombre = txtNombre.getText().trim();
+        String cedula = txtCedula.getText().trim();
+        String telefono = txtTelefono.getText().trim();
 
+        if (nombre.isBlank() || cedula.isBlank() || telefono.isBlank()) {
             throw new Exception("Debe completar todos los datos del pasajero.");
         }
 
-       Pasajero pasajero = new Pasajero(
-        txtNombre.getText().trim(),
-        txtCedula.getText().trim(),
-        "", // correo ausente
-        txtTelefono.getText().trim()
-);
+        // Nombre: solo letras y espacios
+        if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+            throw new Exception("El nombre solo puede contener letras.");
+        }
 
+        // Cédula: exactamente 9 dígitos
+        if (!cedula.matches("\\d{9}")) {
+            throw new Exception("La cédula debe contener exactamente 9 dígitos numéricos.");
+        }
+
+        // Teléfono: exactamente 8 dígitos
+        if (!telefono.matches("\\d{8}")) {
+            throw new Exception("El número de teléfono debe tener exactamente 8 dígitos.");
+        }
+
+        // Crear pasajero
+        Pasajero pasajero = new Pasajero(
+                nombre,
+                cedula,
+                "", // correo ausente
+                telefono
+        );
 
         String[] arregloAsientos = seleccion.toArray(new String[0]);
 
@@ -221,6 +278,7 @@ for (var asiento : vuelo.getAvion().getAsiento()) {
                 arregloAsientos
         );
 
+        // Mostrar confirmación
         JOptionPane.showMessageDialog(this,
                 "Reserva realizada con éxito.\n\n" +
                         "ID: " + r.getIdReservacion() + "\n" +
@@ -229,8 +287,6 @@ for (var asiento : vuelo.getAvion().getAsiento()) {
                 "Éxito",
                 JOptionPane.INFORMATION_MESSAGE);
 
-        cargarAsientos(); // refrescar lista
+        cargarAsientos(); // refrescar lista tras reservar
     }
 }
-
-                    
