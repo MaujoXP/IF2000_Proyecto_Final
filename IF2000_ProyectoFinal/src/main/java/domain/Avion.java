@@ -5,7 +5,18 @@
 package main.java.domain;
 
 /**
- *
+ * Representa un avión con una matrícula única y un conjunto predefinido
+ * de asientos. El avión contiene 4 asientos: dos de clase Ejecutiva y dos 
+ * de clase Económica. Permite buscar, reservar y liberar asientos, así como 
+ * consultar cuántos asientos disponibles hay según la clase.
+ * 
+ * Métodos principales:
+ * - buscarAsientos: busca un asiento por su ID.
+ * - reservarAsientos: reserva un asiento si existe y no está reservado.
+ * - liberarAsientos: libera un asiento previamente reservado.
+ * - asientosDisponiblesClase: cuenta asientos disponibles por tipo de clase.
+ * 
+ * 
  * @author mauri, alvin, ariana, wendoly
  */
 public class Avion {
@@ -13,6 +24,15 @@ public class Avion {
     private String matriculaAvion;
     private Asiento[] asientos;
     
+    /**
+     * Constructor del avión. Crea la matrícula e inicializa los 4 asientos:
+     * 1A - Ejecutiva
+     * 1B - Ejecutiva
+     * 2A - Económica
+     * 2B - Económica
+     * 
+     * @param matriculaAvion Matrícula única del avión.
+     */
     public Avion(String matriculaAvion){
         this.matriculaAvion = matriculaAvion;
         this.asientos = new Asiento[4];
@@ -30,30 +50,31 @@ public class Avion {
         return asientos;
     }
     
-    // corregir estructura
+    /**
+     * Busca un asiento por su ID (por ejemplo "1A").
+     * El método normaliza el texto (trim y mayúsculas) antes de buscar.
+     * 
+     * @param idAsiento ID del asiento a buscar.
+     * @return Asiento encontrado o null si no existe.
+     */
     public Asiento buscarAsientos(String idAsiento){
         if(idAsiento == null){
-            return null; //no hay id valido para el asiento
+            return null; 
         }
-        // clave se encarga de verificar la validez del id si se encuentra vacio
         String claveAsiento = idAsiento.trim().toUpperCase();
         if(claveAsiento.isEmpty()){
-            return null; // id vacio
+            return null;
         }
         
-        //busqueda del asiento por su indice o id
         for(int i = 0; i < asientos.length; i++){
             Asiento actual = asientos[i];
-            //comprobacion de nulidad
             if(actual == null){
-                continue; //continua la busqueda
+                continue;
             }
             
-            //normalizacion y obtencion del asiento actual
             String asientoActual = (actual.getIdAsiento() == null) ? "" : 
                     actual.getIdAsiento().trim().toUpperCase();
             
-            // comparativa entre clvae y id del asiento
             if(asientoActual.equals(claveAsiento)){
                 return actual;
             }
@@ -61,6 +82,12 @@ public class Avion {
         return null;
     }
     
+    /**
+     * Reserva un asiento si existe y no está reservado.
+     * 
+     * @param idAsiento ID del asiento a reservar.
+     * @throws Exception si el asiento no existe o ya está reservado.
+     */
     public void reservarAsientos(String idAsiento) throws Exception{
         if(idAsiento == null || idAsiento.trim().isEmpty()){
             throw new Exception("Por favor, indique un numero de asiento valido.");
@@ -77,6 +104,12 @@ public class Avion {
         a.reservarAsiento();
     }
     
+    /**
+     * Libera un asiento reservado.
+     * 
+     * @param idAsiento ID del asiento a liberar.
+     * @throws Exception si el asiento no existe o ya está libre.
+     */
     public void liberarAsientos(String idAsiento) throws Exception{
         if(idAsiento == null || idAsiento.trim().isEmpty()){
             throw new Exception("Por favor, indique un numero de asiento valido.");
@@ -93,7 +126,12 @@ public class Avion {
         a.liberarAsiento();
     }
     
-    // rediseñar estructura
+    /**
+     * Cuenta cuántos asientos disponibles existen según un tipo de clase.
+     * 
+     * @param tipoClase "Ejecutiva" o "Economica"
+     * @return cantidad de asientos disponibles de esa clase.
+     */
     public int asientosDisponiblesClase(String tipoClase){
         if(tipoClase == null) return 0;
         int contadorAsientos = 0; 
